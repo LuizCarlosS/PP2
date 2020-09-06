@@ -7,7 +7,7 @@ class Perceptron:
     def __init__(self):
         self.weights = []
     
-    def fit(self, train_data, train_output, learning_rate = 0.1, sampling_range = 1.0):
+    def fit(self, train_data, train_output, num_epochs = -1, shuffle = False, learning_rate = 0.1, sampling_range = 1.0):
         w = np.random.uniform(-sampling_range/2, sampling_range/2, len(train_data[0]) + 1)
         print("Pesos iniciais: {}".format(w))
 
@@ -19,11 +19,13 @@ class Perceptron:
         total_changes = 0
 
         changes = -1
-        while changes != 0:
+        while changes != 0 or epoch <= num_epochs:
             changes = 0
             
             print("------ Época {} ------".format(epoch + 1))
 
+            if shuffle:
+                xs = np.random.shuffle(xs)
             i = 0
             for x in xs:
                 output = activation_function(np.dot(x, w))
@@ -39,7 +41,8 @@ class Perceptron:
             print("Total de ajustes: {}".format(changes))
             epoch += 1
             total_changes += changes
-        
+            if num_epochs > 0:
+                changes = -1
         self.weights = w
 
         print("*********************")
