@@ -4,7 +4,8 @@ def activation_function(u, threshold = 0):
     return 1 if u >= threshold else 0
 
 class Perceptron:
-    def __init__(self):
+    def __init__(self, bias = -1):
+        self.bias = bias
         self.weights = []
     
     def fit(self, train_data, train_output, learning_rate = 0.1, sampling_range = 1.0):
@@ -12,7 +13,7 @@ class Perceptron:
         print("Pesos iniciais: {}".format(w))
 
         xs = np.asarray(train_data)
-        xs = np.insert(xs, 0, -1, axis = 1)
+        xs = np.insert(xs, 0, self.bias, axis = 1)
         y = np.asarray(train_output)
 
         epoch = 0
