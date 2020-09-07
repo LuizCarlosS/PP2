@@ -19,7 +19,10 @@ class Perceptron:
         total_changes = 0
 
         changes = -1
-        while changes > 0 or epoch < num_epochs:
+        no_epochs = True
+        if num_epochs > 0 :
+            no_epochs = False
+        while (changes != 0 and no_epochs) or epoch < num_epochs:
             changes = 0
             
             print("------ Época {} ------".format(epoch + 1))
@@ -44,8 +47,7 @@ class Perceptron:
             print("Total de ajustes: {}".format(changes))
             epoch += 1
             total_changes += changes
-            if num_epochs > 0:
-                changes = -1
+            
         self.weights = w
 
         print("*********************")
