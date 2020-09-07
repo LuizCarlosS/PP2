@@ -19,13 +19,16 @@ class Perceptron:
         total_changes = 0
 
         changes = -1
-        while changes != 0 or epoch <= num_epochs:
+        while changes > 0 or epoch < num_epochs:
             changes = 0
             
             print("------ Época {} ------".format(epoch + 1))
 
             if shuffle:
-                xs = np.random.shuffle(xs)
+                s = np.arange(xs.shape[0])
+                np.random.shuffle(s)
+                xs = xs[s]
+                y = y[s]
             i = 0
             for x in xs:
                 output = activation_function(np.dot(x, w))
