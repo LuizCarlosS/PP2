@@ -6,6 +6,7 @@ def activation_function(u, threshold = 0):
 class Perceptron:
     def __init__(self):
         self.weights = []
+        self.epoch_changes = []
     
     def fit(self, train_data, train_output, num_epochs = -1, shuffle = False, learning_rate = 0.1, sampling_range = 1.0):
         w = np.random.uniform(-sampling_range/2, sampling_range/2, len(train_data[0]) + 1)
@@ -43,7 +44,10 @@ class Perceptron:
                     changes += 1
 
                 i += 1
-            
+
+            if(changes > 0):
+            	self.epoch_changes.append(changes)
+            	
             print("Total de ajustes: {}".format(changes))
             epoch += 1
             total_changes += changes
