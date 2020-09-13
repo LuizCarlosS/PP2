@@ -16,7 +16,7 @@ Conforme a descrição do documento do projeto, a equipe utilizou o arquivo `dat
 
 # Membros da Equipe
 
-- Carlos Diego de Almeida
+- Carlos Diego de Almeida 1615080456
 - João Victor Oliveira 1615080303
 - Luiz Carlos Araújo
 - Mikael Fonseca
