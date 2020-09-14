@@ -19,4 +19,4 @@ Conforme a descrição do documento do projeto, a equipe utilizou o arquivo `dat
 - Carlos Diego de Almeida 1615080456
 - João Victor Oliveira 1615080303
 - Luiz Carlos Araújo
-- Mikael Fonseca
+- Mikael Fonseca 1615080339
