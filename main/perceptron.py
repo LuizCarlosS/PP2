@@ -79,8 +79,9 @@ class Perceptron:
     def __init__(self):
         self.weights = []
         self.epoch_changes = []
+        self.total_epochs = 0
     
-    def fit(self, train_data, train_output, num_epochs = -1, shuffle = False, learning_rate = 0.1, sampling_range = 1.0):
+    def fit(self, train_data, train_output, num_epochs = -1, shuffle = False, learning_rate = 0.1, sampling_range = 1.0, verbose = True):
         """
         Ajusta o neurônio de acordo com os parâmetros de entrada. O ajustamento é feito seguindo 
         o algoritmo apresentado em aula.
@@ -108,6 +109,9 @@ class Perceptron:
 
         sampling_range : float, optional
             O intervalo que se deseja gerar uma variável uniforme aleatória.
+	
+        verbose : bool, optional
+            Aciona ou não os prints durante o treinamento.
 
         Prints
         ------
@@ -124,7 +128,8 @@ class Perceptron:
         # O vetor inicial de pesos deve ter seus valores inicializados conforme 
         # uma variável aleatória de distribuição uniforme no intervalo
         w = np.random.uniform(-sampling_range/2, sampling_range/2, len(train_data[0]) + 1)
-        print("Pesos iniciais: {}".format(w))
+        if verbose:
+            print("Pesos iniciais: {}".format(w))
 
         # Garante que os arrays de trabalho são numpy
         xs = np.asarray(train_data)
@@ -133,7 +138,7 @@ class Perceptron:
         # Insere o valor de bias em cada tupla do conjunto
         xs = np.insert(xs, 0, -1, axis = 1)
 
-        epoch = 0
+        self.total_epochs = 0
         total_changes = 0
 
         changes = -1 # armazena quantidade atual de mudanças
@@ -144,10 +149,11 @@ class Perceptron:
         if num_epochs > 0 :
             no_epochs = False
 
-        while (changes != 0 and no_epochs) or epoch < num_epochs:
+        while (changes != 0 and no_epochs) or self.total_epochs < num_epochs:
             changes = 0
             
-            print("------ Época {} ------".format(epoch + 1))
+            if verbose:
+                print("------ Época {} ------".format(epoch + 1))
 
             # Para quando os exemplos devem ser aleatoriamente divididos
             if shuffle:
@@ -166,7 +172,8 @@ class Perceptron:
                     # Regra de atualização dos pesos
                     w = w + learning_rate * error * x
                     # Sempre que o vetor de pesos for ajustado, este deve ser impresso
-                    print("Novos pesos: {}".format(w))
+                    if verbose:
+                        print("Novos pesos: {}".format(w))
                     changes += 1
 
                 i += 1
@@ -175,8 +182,9 @@ class Perceptron:
             	self.epoch_changes.append(changes)
             	
             # A cada época deve ser indicado o número de ajustes feitos no vetor de pesos
-            print("Total de ajustes: {}".format(changes))
-            epoch += 1
+            if verbose:
+                print("Total de ajustes: {}".format(changes))
+            self.total_epochs += 1
             total_changes += changes
             
         self.weights = w
@@ -184,9 +192,10 @@ class Perceptron:
         # Ao final, deve-se imprimir:
         ## (a) O número total de ajustes no vetor de pesos;
         ## (b) O número de épocas até a convergência;
-        print("*********************")
-        print("Total de épocas: {}".format(epoch))
-        print("Total de ajustes de peso: {}".format(total_changes))
+        if verbose:
+            print("*********************")
+            print("Total de épocas: {}".format(self.total_epochs))
+            print("Total de ajustes de peso: {}".format(total_changes))
 
     
     def predict(self, input_data):
