@@ -79,7 +79,6 @@ class Perceptron:
     def __init__(self):
         self.weights = []
         self.epoch_changes = []
-        self.total_epochs = 0
     
     def fit(self, train_data, train_output, num_epochs = -1, shuffle = False, learning_rate = 0.1, sampling_range = 1.0, verbose = True):
         """
@@ -138,7 +137,7 @@ class Perceptron:
         # Insere o valor de bias em cada tupla do conjunto
         xs = np.insert(xs, 0, -1, axis = 1)
 
-        self.total_epochs = 0
+        epoch = 0
         total_changes = 0
 
         changes = -1 # armazena quantidade atual de mudanças
@@ -149,7 +148,7 @@ class Perceptron:
         if num_epochs > 0 :
             no_epochs = False
 
-        while (changes != 0 and no_epochs) or self.total_epochs < num_epochs:
+        while (changes != 0 and no_epochs) or epoch < num_epochs:
             changes = 0
             
             if verbose:
@@ -184,7 +183,7 @@ class Perceptron:
             # A cada época deve ser indicado o número de ajustes feitos no vetor de pesos
             if verbose:
                 print("Total de ajustes: {}".format(changes))
-            self.total_epochs += 1
+            epoch += 1
             total_changes += changes
             
         self.weights = w
@@ -194,7 +193,7 @@ class Perceptron:
         ## (b) O número de épocas até a convergência;
         if verbose:
             print("*********************")
-            print("Total de épocas: {}".format(self.total_epochs))
+            print("Total de épocas: {}".format(epoch))
             print("Total de ajustes de peso: {}".format(total_changes))
 
     
