@@ -12,7 +12,7 @@ Os 3 notebooks, um para cada parte do projeto, encontram-se [aqui](/main/).
 
 # Conjunto de Dados Utilizado
 
-Conforme a descrição do documento do projeto, a equipe utilizou o arquivo `data0.txt`.
+Conforme a descrição do documento do projeto, a equipe utilizou o arquivo `data0.txt`, bem como os outros dois que são comuns a todas as equipes.
 
 # Membros da Equipe
 
